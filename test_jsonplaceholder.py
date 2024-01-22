@@ -1,20 +1,21 @@
 import requests
 
-ENDPOINT = "https://jsonplaceholder.typicode.com/users"
-
-response = requests.get(ENDPOINT)
-print(response)
-print(response.status_code)
-
-data = response.json()
-print(data)
-print(data[0])
-
-status_code = response.status_code
-print(status_code)
+ENDPOINT = "https://todo.pixegami.io"
 
 
 def test_can_call_endpoint():
     response = requests.get(ENDPOINT)
-    assert status_code == 200
-    pass
+    assert response.status_code == 200
+
+
+def test_create_task():
+    payload = {
+        "content": "test",
+        "user_id": "test",
+        "task_id": "test",
+        "is_done": False
+    }
+    response = requests.put(ENDPOINT + "/create-task", json=payload)
+    assert response.status_code == 200
+    data = response.json()
+    print(data)
